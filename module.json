@@ -1,0 +1,21 @@
+{
+  "id": "fatex-engram-custom",
+  "title": "FateX Engram Custom",
+  "description": "FateX 캐릭터 시트를 확장하여 HP와 MP 시스템을 적용한 커스텀 시트입니다.",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "esmodules": [
+    "scripts/sheet.js"
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "fatex",
+        "type": "system"
+      }
+    ]
+  }
+}

@@ -1,0 +1,156 @@
+<form autocomplete="off" class="fatex-u-full-height {{cssClass}}">
+    <div class="fatex-desk">
+        {{!--HEADER--}}
+        {{> "systems/fatex/templates/components/header.hbs"}}
+
+        <div class="fatex-desk__content fatex-desk__content--actor-sheet">
+            <div class="fatex-desk__tabloid">
+                {{!--Messages--}}
+                <div class="fatex-desk__messages">
+                    {{> "systems/fatex/templates/components/messages.hbs"}}
+                </div>
+
+                {{!--Aspects--}}
+                <section class="fatex-desk__aspects">
+                    <header class="fatex-headline">
+                        <h2 class="fatex-headline__text">{{localize "FAx.Sheet.Aspects"}}</h2>
+                        <div class="fatex-actions fatex-actions--headline">
+                            <i class="fatex-js-aspect-add fatex-actions__icon fa fa-plus"></i>
+                        </div>
+                    </header>
+
+                    <!-- 커스텀 면모 리스트 시작 -->
+                    <div class="fatex-item-list" style="padding: 10px;">
+                        <!-- ⭐ 불필요한 조건문 제거: 순정 FateX처럼 'aspects' 목록만 바로 불러옵니다 -->
+                        {{#each aspects as |item|}}
+                        <div class="fatex-js-item fatex-item" data-item-id="{{item.id}}"
+                            style="display: grid !important; grid-template-columns: 24px 1fr auto !important; align-items: start; gap: 10px; margin-bottom: 12px; position: relative;">
+
+                            <div
+                                style="display: flex; justify-content: center; align-items: flex-start; padding-top: 4px;">
+                                <input type="checkbox" class="engram-memory-extract" data-item-id="{{item.id}}" {{#if
+                                    (lookup (lookup item.flags "fatex-engram-custom" ) "extracted" )}}checked{{/if}}
+                                    style="width: 18px; height: 18px; cursor: pointer; accent-color: #8b0000; margin: 0;">
+                            </div>
+
+                            <!-- 방 2: 면모 텍스트 및 라벨 -->
+                            <div style="display: flex; flex-direction: column;">
+
+                                <!-- 면모 텍스트 (내용) : FateX 전용 스크립트(.fatex-js-aspect-input)가 알아서 저장합니다 -->
+                                <div class="fatex-js-aspect-input fatex-item__value" data-item-id="{{item.id}}"
+                                    contenteditable="true" style="width: 100%; box-sizing: border-box; background: transparent; border: none; border-bottom: 1px solid #ccc; font-size: 1.1em; font-family: inherit; line-height: 1.5; min-height: 30px; outline: none; padding: 2px 0; margin: 0;
+                                            {{#if (lookup (lookup item.flags " fatex-engram-custom") "extracted"
+                                    )}}text-decoration: line-through; color: #888; opacity: 0.5;{{/if}}">
+                                    {{{item.system.value}}}</div>
+
+                                <!-- ⭐ 보기 전용 라벨 (item.name -> item.system.label 로 올바르게 연결) -->
+                                <div class="fatex-text-input__label"
+                                    style="margin-top: 4px; padding-left: 0; cursor: default;">{{item.system.label}}
+                                </div>
+                            </div>
+
+                            <div class="fatex-actions"
+                                style="display: flex !important; position: static !important; width: auto !important; gap: 8px; justify-content: flex-end; background: none; padding-top: 4px;">
+                                <i class="fatex-js-item-sort fatex-actions__icon fas fa-sort" title="정렬"
+                                    data-item="{{item.id}}" data-item-id="{{item.id}}"></i>
+                                <i class="fatex-js-item-to-chat fatex-actions__icon fatex-actions__icon--no-hide fas fa-comment"
+                                    title="채팅으로 보내기" data-item="{{item.id}}" data-item-id="{{item.id}}"
+                                    style="cursor: pointer; color: #555;"></i>
+                                <i class="fatex-js-aspect-settings fatex-actions__icon fas fa-cog" title="설정"
+                                    data-item="{{item.id}}" data-item-id="{{item.id}}"></i>
+                                <i class="fatex-js-aspect-delete fatex-actions__icon fas fa-trash" title="삭제"
+                                    data-item="{{item.id}}" data-item-id="{{item.id}}"></i>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </section>
+
+                {{!--Consequences--}}
+                <section class="fatex-desk__consequences">
+                    <header class="fatex-headline">
+                        <h2 class="fatex-headline__text">{{localize "FAx.Sheet.Consequences"}}</h2>
+                        <div class="fatex-actions fatex-actions--headline">
+                            <i class="fatex-js-consequence-add fatex-actions__icon fa fa-plus"></i>
+                        </div>
+                    </header>
+
+                    {{> "systems/fatex/templates/components/consequences.hbs"}}
+                    {{> "systems/fatex/templates/components/conditions.hbs"}}
+                </section>
+
+                {{!--Tabs--}}
+                <section class="fatex-desk__tabs fatex-u-padding-std">
+                    <nav class="fatex-js-tabs-navigation fatex-tabs-navigation">
+                        <a class="fatex-tabs-navigation__item" data-tab="skills">
+                            {{~localize "FAx.Sheet.Tabs.SkillsStunts"~}}
+                        </a>
+                        <a class="fatex-tabs-navigation__item" data-tab="extras">
+                            {{~localize "FAx.Sheet.Tabs.Extras"~}}
+                        </a>
+                        <a class="fatex-tabs-navigation__item" data-tab="bio">
+                            {{~localize "FAx.Sheet.Tabs.Bio"~}}
+                        </a>
+                    </nav>
+
+                    <div class="fatex-js-tab-content fatex-u-full-height">
+                        {{!--Skills & Stunts--}}
+                        <div class="fatex-tab-content fatex-tab-content--skills tab" data-tab="skills">
+                            {{> "systems/fatex/templates/actor/tabs/skills.hbs"}}
+                            {{> "systems/fatex/templates/actor/tabs/stunts.hbs"}}
+                        </div>
+
+                        {{!--Extras--}}
+                        <div class="fatex-tab-content tab" data-tab="extras">
+                            {{> "systems/fatex/templates/actor/tabs/extras.hbs"}}
+                        </div>
+
+                        {{!--Bio--}}
+                        <div class="fatex-tab-content fatex-tab-content--bio tab" data-tab="bio">
+                            {{> "systems/fatex/templates/actor/tabs/bio.hbs"}}
+                        </div>
+                    </div>
+                </section>
+
+                {{> "systems/fatex/templates/components/copyright.hbs"}}
+            </div>
+
+            {{!--Sidebar--}}
+            <section class="fatex-desk__sidebar">
+                {{> "systems/fatex/templates/components/artwork.hbs"}}
+                <section class="fatex-u-padding-std">
+                    <!-- HP 영역 -->
+                    <header class="fatex-headline">
+                        <h2 class="fatex-headline__text">HP</h2>
+                    </header>
+                    <div
+                        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                        <input type="number" name="flags.fatex-engram-custom.hp.value" value="{{customData.hp.value}}"
+                            style="width: 45%; text-align: center; font-size: 1.5em; font-weight: bold; background: rgba(0,0,0,0.05); border: 1px solid #ccc; border-radius: 4px; padding: 5px;"
+                            data-dtype="Number" />
+                        <span style="font-size: 1.5em; font-weight: bold; color: #555;"> / </span>
+                        <input type="number" name="flags.fatex-engram-custom.hp.max" value="{{customData.hp.max}}"
+                            style="width: 45%; text-align: center; font-size: 1.2em; background: rgba(0,0,0,0.05); border: 1px solid #ccc; border-radius: 4px; padding: 5px;"
+                            data-dtype="Number" />
+                    </div>
+
+                    <!-- MP 영역 -->
+                    <header class="fatex-headline">
+                        <h2 class="fatex-headline__text">MP</h2>
+                    </header>
+                    <div style="display: flex; align-items: center; justify-content: flex-start; gap: 15px;">
+                        <input type="number" name="flags.fatex-engram-custom.mp.value" value="{{customData.mp.value}}"
+                            style="width: 45%; text-align: center; font-size: 1.5em; font-weight: bold; background: rgba(0,0,0,0.05); border: 1px solid #ccc; border-radius: 4px; padding: 5px; color: #2b5b84;"
+                            data-dtype="Number" />
+                        <span style="font-size: 1.5em; font-weight: bold; color: #555;"> / {{customData.mp.max}}</span>
+                    </div>
+                </section>
+            </section>
+        </div>
+
+        {{!--Footer--}}
+        <div class="fatex-desk__footer">
+            {{> "systems/fatex/templates/components/config.hbs"}}
+        </div>
+    </div>
+</form>
