@@ -2,7 +2,7 @@
   "id": "fatex-engram-custom",
   "title": "FateX Engram Custom",
   "description": "FateX 캐릭터 시트를 확장하여 HP와 MP 시스템을 적용한 커스텀 시트입니다.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "manifest": "https://github.com/YeonHyang525/fate-engram-custom/releases/download/1.1.0/module.json",
   "download": "https://github.com/YeonHyang525/fate-engram-custom/releases/download/1.1.0/fatex-engram-custom.zip",
   "compatibility": {
